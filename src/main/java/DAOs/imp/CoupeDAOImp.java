@@ -1,5 +1,7 @@
 package DAOs.imp;
 
+import DAOs.CoupeDAO;
+import exceptions.DAOException;
 import model.Adicionales.Adicional;
 import model.Automoviles.Coupe;
 
@@ -10,9 +12,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CoupeDAOImp {
+public class CoupeDAOImp implements CoupeDAO {
 
-    private Connection getConnection() throws Exception {
+    private Connection getConnection() throws DAOException {
 
         Connection conn = null;
         try {
@@ -23,24 +25,24 @@ public class CoupeDAOImp {
             conn = DriverManager.getConnection(url, usuario, clave);
         }
         catch(Exception ex) {
-            throw new Exception("Error en iniciar conexion", ex);
+            throw new DAOException("Error en iniciar conexion", ex);
         }
         return conn;
 
     }
 
-    private void closeConnection(Connection conn) throws Exception {
+    private void closeConnection(Connection conn) throws DAOException {
 
         try {
             conn.close();
         }
         catch(Exception ex) {
-            throw new Exception("Error en cerrar conexion", ex);
+            throw new DAOException("Error en cerrar conexion", ex);
         }
 
     }
 
-    public void insert(Coupe coupe) throws Exception {
+    public void insert(Coupe coupe) throws DAOException {
 
         Connection conn = this.getConnection();
 
@@ -52,7 +54,7 @@ public class CoupeDAOImp {
             sentencia.execute(query);
         }
         catch(Exception ex) {
-            throw new Exception("Error en insert", ex);
+            throw new DAOException("Error en insert", ex);
         }
         finally {
             closeConnection(conn);
@@ -60,7 +62,7 @@ public class CoupeDAOImp {
 
     }
 
-    public void update(Coupe coupe) throws Exception {
+    public void update(Coupe coupe) throws DAOException {
 
         Connection conn = this.getConnection();
 
@@ -72,7 +74,7 @@ public class CoupeDAOImp {
             sentencia.execute(query);
         }
         catch(Exception ex) {
-            throw new Exception("Error en update", ex);
+            throw new DAOException("Error en update", ex);
         }
         finally {
             closeConnection(conn);
@@ -80,7 +82,7 @@ public class CoupeDAOImp {
 
     }
 
-    public void delete(Integer id) throws Exception {
+    public void delete(Integer id) throws DAOException {
 
         Connection conn = this.getConnection();
 
@@ -90,7 +92,7 @@ public class CoupeDAOImp {
             sentencia.execute(query);
         }
         catch(Exception ex) {
-            throw new Exception("Error en delete", ex);
+            throw new DAOException("Error en delete", ex);
         }
         finally {
             closeConnection(conn);
@@ -98,7 +100,7 @@ public class CoupeDAOImp {
 
     }
 
-    public Coupe queryId(Integer id) throws Exception {
+    public Coupe queryId(Integer id) throws DAOException {
 
         Connection conn = this.getConnection();
         Coupe coupe = null;
@@ -115,7 +117,7 @@ public class CoupeDAOImp {
             }
         }
         catch(Exception ex) {
-            throw new Exception("Error en query", ex);
+            throw new DAOException("Error en query", ex);
         }
         finally {
             closeConnection(conn);
@@ -124,7 +126,7 @@ public class CoupeDAOImp {
 
     }
 
-    public List<String> queryAdicionales(Integer id) throws Exception {
+    public List<String> queryAdicionales(Integer id) throws DAOException {
 
         Connection conn = this.getConnection();
         Adicional adicional = null;
@@ -143,7 +145,7 @@ public class CoupeDAOImp {
             }
         }
         catch(Exception ex) {
-            throw new Exception("Error en queryAdicionales", ex);
+            throw new DAOException("Error en queryAdicionales", ex);
         }
         finally {
             closeConnection(conn);

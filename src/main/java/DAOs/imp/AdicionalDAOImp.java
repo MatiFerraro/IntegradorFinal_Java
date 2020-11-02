@@ -1,5 +1,6 @@
 package DAOs.imp;
 
+import exceptions.DAOException;
 import model.Adicionales.Adicional;
 
 import java.sql.Connection;
@@ -9,7 +10,7 @@ import java.sql.Statement;
 
 public class AdicionalDAOImp {
 
-    private Connection getConnection() throws Exception {
+    private Connection getConnection() throws DAOException {
 
         Connection conn = null;
         try {
@@ -20,24 +21,24 @@ public class AdicionalDAOImp {
             conn = DriverManager.getConnection(url, usuario, clave);
         }
         catch(Exception ex) {
-            throw new Exception("Error en iniciar conexion", ex);
+            throw new DAOException("Error en iniciar conexion", ex);
         }
         return conn;
 
     }
 
-    private void closeConnection(Connection conn) throws Exception {
+    private void closeConnection(Connection conn) throws DAOException {
 
         try {
             conn.close();
         }
         catch(Exception ex) {
-            throw new Exception("Error en cerrar conexion", ex);
+            throw new DAOException("Error en cerrar conexion", ex);
         }
 
     }
 
-    public void insert(Adicional adicional) throws Exception {
+    public void insert(Adicional adicional) throws DAOException {
 
         Connection conn = this.getConnection();
 
@@ -49,7 +50,7 @@ public class AdicionalDAOImp {
             sentencia.execute(query);
         }
         catch(Exception ex) {
-            throw new Exception("Error en insert", ex);
+            throw new DAOException("Error en insert", ex);
         }
         finally {
             closeConnection(conn);
@@ -57,7 +58,7 @@ public class AdicionalDAOImp {
 
     }
 
-    public void update(Adicional adicional) throws Exception {
+    public void update(Adicional adicional) throws DAOException {
 
         Connection conn = this.getConnection();
 
@@ -69,7 +70,7 @@ public class AdicionalDAOImp {
             sentencia.execute(query);
         }
         catch(Exception ex) {
-            throw new Exception("Error en update", ex);
+            throw new DAOException("Error en update", ex);
         }
         finally {
             closeConnection(conn);
@@ -77,7 +78,7 @@ public class AdicionalDAOImp {
 
     }
 
-    public void delete(Integer id) throws Exception {
+    public void delete(Integer id) throws DAOException {
 
         Connection conn = this.getConnection();
 
@@ -87,7 +88,7 @@ public class AdicionalDAOImp {
             sentencia.execute(query);
         }
         catch(Exception ex) {
-            throw new Exception("Error en delete", ex);
+            throw new DAOException("Error en delete", ex);
         }
         finally {
             closeConnection(conn);
@@ -95,7 +96,7 @@ public class AdicionalDAOImp {
 
     }
 
-    public Adicional queryId(Integer id) throws Exception {
+    public Adicional queryId(Integer id) throws DAOException {
 
         Connection conn = this.getConnection();
         Adicional adicional = null;
@@ -112,7 +113,7 @@ public class AdicionalDAOImp {
             }
         }
         catch(Exception ex) {
-            throw new Exception("Error en query", ex);
+            throw new DAOException("Error en query", ex);
         }
         finally {
             closeConnection(conn);

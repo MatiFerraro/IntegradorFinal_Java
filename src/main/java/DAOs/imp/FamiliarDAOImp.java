@@ -1,9 +1,9 @@
 package DAOs.imp;
 
-import DAOs.AutomovilDAO;
+import DAOs.FamiliarDAO;
 import exceptions.DAOException;
 import model.Adicionales.Adicional;
-import model.Automoviles.Automovil;
+import model.Automoviles.Familiar;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AutomovilDAOImp implements AutomovilDAO {
+public class FamiliarDAOImp implements FamiliarDAO {
 
     private Connection getConnection() throws DAOException {
 
@@ -42,14 +42,14 @@ public class AutomovilDAOImp implements AutomovilDAO {
 
     }
 
-    public void insert(Automovil auto) throws DAOException {
+    public void insert(Familiar familiar) throws DAOException {
 
         Connection conn = this.getConnection();
 
         try {
             String query = "INSERT INTO automovil(precioBase, precioFinal) VALUES(" +
-                    auto.getPrecioBase() + ", "  +
-                    auto.getPrecioFinal() + ")";
+                    familiar.getPrecioBase() + ", "  +
+                    familiar.getPrecioFinal() + ")";
             Statement sentencia = conn.createStatement();
             sentencia.execute(query);
         }
@@ -62,14 +62,14 @@ public class AutomovilDAOImp implements AutomovilDAO {
 
     }
 
-    public void update(Automovil auto) throws DAOException {
+    public void update(Familiar familiar) throws DAOException {
 
         Connection conn = this.getConnection();
 
         try {
-            String query = "UPDATE automovil SET precioBase = " + auto.getPrecioBase() +
-                    " SET precioFinal = " + auto.calcularCosto() +
-                    " WHERE id = " + auto.getId();
+            String query = "UPDATE automovil SET precioBase = " + familiar.getPrecioBase() +
+                    " SET precioFinal = " + familiar.calcularCosto() +
+                    " WHERE id = " + familiar.getId();
             Statement sentencia = conn.createStatement();
             sentencia.execute(query);
         }
@@ -100,10 +100,10 @@ public class AutomovilDAOImp implements AutomovilDAO {
 
     }
 
-    public Automovil queryId(Integer id) throws DAOException {
+    public Familiar queryId(Integer id) throws DAOException {
 
         Connection conn = this.getConnection();
-        Automovil auto = null;
+        Familiar familiar = null;
 
         try {
             String query = "SELECT * FROM automovil WHERE id = " + id ;
@@ -111,9 +111,9 @@ public class AutomovilDAOImp implements AutomovilDAO {
             sentencia.execute(query);
             ResultSet rs = sentencia.getResultSet();
             if(rs.next()){
-                auto.setId(id);
-                auto.setPrecioBase(rs.getFloat("precioBase"));
-                auto.setPrecioFinal(rs.getFloat("precioFinal"));
+                familiar.setId(id);
+                familiar.setPrecioBase(rs.getFloat("precioBase"));
+                familiar.setPrecioFinal(rs.getFloat("precioFinal"));
             }
         }
         catch(Exception ex) {
@@ -122,7 +122,7 @@ public class AutomovilDAOImp implements AutomovilDAO {
         finally {
             closeConnection(conn);
         }
-        return auto;
+        return familiar;
 
     }
 
@@ -134,9 +134,9 @@ public class AutomovilDAOImp implements AutomovilDAO {
 
         try {
             String query = "SELECT descripcion, precio " +
-                            "FROM adicional " +
-                            "LEFT JOIN adicionales_auto ON adicional.id = adicionales_auto.idAuto" +
-                            "WHERE adicionales_auto.idAuto = " + id;
+                    "FROM adicional " +
+                    "LEFT JOIN adicionales_auto ON adicional.id = adicionales_auto.idAuto" +
+                    "WHERE adicionales_auto.idAuto = " + id;
             Statement sentencia = conn.createStatement();
             sentencia.execute(query);
             ResultSet rs = sentencia.getResultSet();
