@@ -4,11 +4,16 @@ import model.Adicionales.Adicional;
 
 public class Coupe extends Automovil {
 
-    protected Float precioBase = 270000f;
-    protected Float precioFinal;
+    private String variante = "Coupe";
 
     public Coupe(){
         super();
+        this.idVariante = 1;
+        this.precioBase = 27000f;
+    }
+
+    public String getVariante() {
+        return variante;
     }
 
 }

@@ -1,9 +1,9 @@
 package DAOs.imp;
 
-import DAOs.FamiliarDAO;
+import DAOs.AdicionalesAutoDAO;
 import exceptions.DAOException;
 import model.Adicionales.Adicional;
-import model.Automoviles.Familiar;
+import model.Automoviles.Automovil;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,13 +12,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FamiliarDAOImp implements FamiliarDAO {
+public class AdicionalesAutoDAOImp implements AdicionalesAutoDAO {
 
     private Connection getConnection() throws DAOException {
 
         Connection conn = null;
         try {
-            String url = "jdbc:mysql://localhost:3306/ej_integrador3";
+            String url = "jdbc:mysql://localhost:3306/fabricaciondeautos";
             String usuario = "root";
             String clave = "";
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -42,19 +42,18 @@ public class FamiliarDAOImp implements FamiliarDAO {
 
     }
 
-    public void insert(Familiar familiar) throws DAOException {
+    public void insert(Integer idAutomovil, Integer idAdicional) throws DAOException {
 
         Connection conn = this.getConnection();
 
         try {
-            String query = "INSERT INTO automovil(precioBase, precioFinal) VALUES(" +
-                    familiar.getPrecioBase() + ", "  +
-                    familiar.getPrecioFinal() + ")";
+            String query = "INSERT INTO adicionales_auto(idAuto, idAdicional) VALUES(" +
+                    idAutomovil + ", " + idAdicional + ")";
             Statement sentencia = conn.createStatement();
             sentencia.execute(query);
         }
         catch(Exception ex) {
-            throw new DAOException("Error en insert", ex);
+            throw new DAOException("DAO Error: Error en insert", ex);
         }
         finally {
             closeConnection(conn);
@@ -62,19 +61,18 @@ public class FamiliarDAOImp implements FamiliarDAO {
 
     }
 
-    public void update(Familiar familiar) throws DAOException {
+    public void update(Integer idAutomovil, Integer idAdicional) throws DAOException {
 
         Connection conn = this.getConnection();
 
         try {
-            String query = "UPDATE automovil SET precioBase = " + familiar.getPrecioBase() +
-                    " SET precioFinal = " + familiar.calcularCosto() +
-                    " WHERE id = " + familiar.getId();
+            String query = "UPDATE adicionales_auto SET idAdicional = " + idAdicional +
+                    " WHERE idAuto = " + idAutomovil;
             Statement sentencia = conn.createStatement();
             sentencia.execute(query);
         }
         catch(Exception ex) {
-            throw new DAOException("Error en update", ex);
+            throw new DAOException("DAO Error: Error en update", ex);
         }
         finally {
             closeConnection(conn);
@@ -82,17 +80,18 @@ public class FamiliarDAOImp implements FamiliarDAO {
 
     }
 
-    public void delete(Integer id) throws DAOException {
+    public void delete(Integer idAutomovil, Integer idAdicional) throws DAOException {
 
         Connection conn = this.getConnection();
 
         try {
-            String query = "DELETE FROM automovil WHERE id = " + id;
+            String query = "DELETE FROM adicional_auto WHERE idAuto = " + idAutomovil +
+                            " AND idAdicional = " + idAdicional;
             Statement sentencia = conn.createStatement();
             sentencia.execute(query);
         }
         catch(Exception ex) {
-            throw new DAOException("Error en delete", ex);
+            throw new DAOException("DAO Error: Error en delete", ex);
         }
         finally {
             closeConnection(conn);
@@ -100,52 +99,29 @@ public class FamiliarDAOImp implements FamiliarDAO {
 
     }
 
-    public Familiar queryId(Integer id) throws DAOException {
-
-        Connection conn = this.getConnection();
-        Familiar familiar = null;
-
-        try {
-            String query = "SELECT * FROM automovil WHERE id = " + id ;
-            Statement sentencia = conn.createStatement();
-            sentencia.execute(query);
-            ResultSet rs = sentencia.getResultSet();
-            if(rs.next()){
-                familiar.setId(id);
-                familiar.setPrecioBase(rs.getFloat("precioBase"));
-                familiar.setPrecioFinal(rs.getFloat("precioFinal"));
-            }
-        }
-        catch(Exception ex) {
-            throw new DAOException("Error en query", ex);
-        }
-        finally {
-            closeConnection(conn);
-        }
-        return familiar;
-
-    }
-
-    public List<String> queryAdicionales(Integer id) throws DAOException {
+    public List<Adicional> queryAdicionalesAuto(Integer idAutomovil) throws DAOException {
 
         Connection conn = this.getConnection();
         Adicional adicional = null;
-        List<String> adicionales = new ArrayList<String>();
+        List<Adicional> adicionales = new List<Adicional>();
 
         try {
             String query = "SELECT descripcion, precio " +
                     "FROM adicional " +
                     "LEFT JOIN adicionales_auto ON adicional.id = adicionales_auto.idAuto" +
-                    "WHERE adicionales_auto.idAuto = " + id;
+                    "WHERE adicionales_auto.idAuto = " + idAutomovil;
             Statement sentencia = conn.createStatement();
             sentencia.execute(query);
             ResultSet rs = sentencia.getResultSet();
             if(rs.next()){
-                adicionales.add(rs.getString("descripcion"));
+                adicional.setId(rs.getInt("id"));
+                adicional.setDescripcion(rs.getString("descripcion"));
+                adicional.setPrecioAdicional(rs.getFloat("precio"));
+                adicionales.add(adicional);
             }
         }
         catch(Exception ex) {
-            throw new DAOException("Error en queryAdicionales", ex);
+            throw new DAOException("DAO Error: Error en queryAdicionales", ex);
         }
         finally {
             closeConnection(conn);

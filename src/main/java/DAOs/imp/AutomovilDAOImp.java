@@ -18,7 +18,7 @@ public class AutomovilDAOImp implements AutomovilDAO {
 
         Connection conn = null;
         try {
-            String url = "jdbc:mysql://localhost:3306/ej_integrador3";
+            String url = "jdbc:mysql://localhost:3306/fabricaciondeautos";
             String usuario = "root";
             String clave = "";
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -42,19 +42,24 @@ public class AutomovilDAOImp implements AutomovilDAO {
 
     }
 
-    public void insert(Automovil auto) throws DAOException {
+    public void insert(Automovil automovil) throws DAOException {
 
         Connection conn = this.getConnection();
 
         try {
             String query = "INSERT INTO automovil(precioBase, precioFinal) VALUES(" +
-                    auto.getPrecioBase() + ", "  +
-                    auto.getPrecioFinal() + ")";
+                    automovil.getPrecioBase() + ", "  +
+                    automovil.getPrecioFinal() + ")";
             Statement sentencia = conn.createStatement();
             sentencia.execute(query);
+
+            List<Adicional> adicionales = automovil.getAdicionales();
+            for(Adicional adicional : adicionales) {
+
+            }
         }
         catch(Exception ex) {
-            throw new DAOException("Error en insert", ex);
+            throw new DAOException("DAO Error: Error en insert", ex);
         }
         finally {
             closeConnection(conn);
@@ -62,19 +67,19 @@ public class AutomovilDAOImp implements AutomovilDAO {
 
     }
 
-    public void update(Automovil auto) throws DAOException {
+    public void update(Automovil automovil) throws DAOException {
 
         Connection conn = this.getConnection();
 
         try {
-            String query = "UPDATE automovil SET precioBase = " + auto.getPrecioBase() +
-                    " SET precioFinal = " + auto.calcularCosto() +
-                    " WHERE id = " + auto.getId();
+            String query = "UPDATE automovil SET precioBase = " + automovil.getPrecioBase() +
+                    " SET precioFinal = " + automovil.calcularCosto() +
+                    " WHERE id = " + automovil.getId();
             Statement sentencia = conn.createStatement();
             sentencia.execute(query);
         }
         catch(Exception ex) {
-            throw new DAOException("Error en update", ex);
+            throw new DAOException("DAO Error: Error en update", ex);
         }
         finally {
             closeConnection(conn);
@@ -92,7 +97,7 @@ public class AutomovilDAOImp implements AutomovilDAO {
             sentencia.execute(query);
         }
         catch(Exception ex) {
-            throw new DAOException("Error en delete", ex);
+            throw new DAOException("DAO Error: Error en delete", ex);
         }
         finally {
             closeConnection(conn);
@@ -103,7 +108,7 @@ public class AutomovilDAOImp implements AutomovilDAO {
     public Automovil queryId(Integer id) throws DAOException {
 
         Connection conn = this.getConnection();
-        Automovil auto = null;
+        Automovil automovil = null;
 
         try {
             String query = "SELECT * FROM automovil WHERE id = " + id ;
@@ -111,18 +116,18 @@ public class AutomovilDAOImp implements AutomovilDAO {
             sentencia.execute(query);
             ResultSet rs = sentencia.getResultSet();
             if(rs.next()){
-                auto.setId(id);
-                auto.setPrecioBase(rs.getFloat("precioBase"));
-                auto.setPrecioFinal(rs.getFloat("precioFinal"));
+                automovil.setId(id);
+                automovil.setPrecioBase(rs.getFloat("precioBase"));
+                automovil.setPrecioFinal(rs.getFloat("precioFinal"));
             }
         }
         catch(Exception ex) {
-            throw new DAOException("Error en query", ex);
+            throw new DAOException("DAO Error: Error en query", ex);
         }
         finally {
             closeConnection(conn);
         }
-        return auto;
+        return automovil;
 
     }
 
@@ -134,9 +139,9 @@ public class AutomovilDAOImp implements AutomovilDAO {
 
         try {
             String query = "SELECT descripcion, precio " +
-                            "FROM adicional " +
-                            "LEFT JOIN adicionales_auto ON adicional.id = adicionales_auto.idAuto" +
-                            "WHERE adicionales_auto.idAuto = " + id;
+                    "FROM adicional " +
+                    "LEFT JOIN adicionales_auto ON adicional.id = adicionales_auto.idAuto" +
+                    "WHERE adicionales_auto.idAuto = " + id;
             Statement sentencia = conn.createStatement();
             sentencia.execute(query);
             ResultSet rs = sentencia.getResultSet();
@@ -145,7 +150,7 @@ public class AutomovilDAOImp implements AutomovilDAO {
             }
         }
         catch(Exception ex) {
-            throw new DAOException("Error en queryAdicionales", ex);
+            throw new DAOException("DAO Error: Error en queryAdicionales", ex);
         }
         finally {
             closeConnection(conn);

@@ -7,23 +7,24 @@ import java.util.ArrayList;
 
 public abstract class Automovil {
 
-    protected Integer id;
+    private Integer id;
+    protected Integer idVariante;
     protected Float precioBase;
     protected Float precioFinal;
 
-    protected List<Adicional> adicionales;
+    private List<Adicional> adicionales;
 
-    protected Automovil(){
-        adicionales = new ArrayList<Adicional>();
+    public Automovil(){
+        setAdicionales(new ArrayList<Adicional>());
     }
 
     public void agregarAdicional(Adicional unAdicional){
-        adicionales.add(unAdicional);
+        getAdicionales().add(unAdicional);
     }
 
     public Float calcularCosto(){
         Float acum = 0f;
-        for(Adicional adicional : adicionales) {
+        for(Adicional adicional : getAdicionales()) {
             acum += adicional.getPrecioAdicional();
         }
         acum += getPrecioBase();
@@ -31,12 +32,20 @@ public abstract class Automovil {
         return acum;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getIdVariante() {
+        return idVariante;
+    }
+
+    public void setIdVariante(Integer idVariante) {
+        this.idVariante = idVariante;
     }
 
     public Float getPrecioBase() {
@@ -53,5 +62,15 @@ public abstract class Automovil {
 
     public void setPrecioFinal(Float precioFinal) {
         this.precioFinal = precioFinal;
+    }
+
+    public abstract String getVariante();
+
+    public List<Adicional> getAdicionales() {
+        return adicionales;
+    }
+
+    public void setAdicionales(List<Adicional> adicionales) {
+        this.adicionales = adicionales;
     }
 }

@@ -14,7 +14,7 @@ public class AdicionalDAOImp {
 
         Connection conn = null;
         try {
-            String url = "jdbc:mysql://localhost:3306/ej_integrador3";
+            String url = "jdbc:mysql://localhost:3306/fabricaciondeautos";
             String usuario = "root";
             String clave = "";
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -50,7 +50,7 @@ public class AdicionalDAOImp {
             sentencia.execute(query);
         }
         catch(Exception ex) {
-            throw new DAOException("Error en insert", ex);
+            throw new DAOException("DAO Error: Error en insert", ex);
         }
         finally {
             closeConnection(conn);
@@ -70,7 +70,7 @@ public class AdicionalDAOImp {
             sentencia.execute(query);
         }
         catch(Exception ex) {
-            throw new DAOException("Error en update", ex);
+            throw new DAOException("DAO Error: Error en update", ex);
         }
         finally {
             closeConnection(conn);
@@ -88,7 +88,7 @@ public class AdicionalDAOImp {
             sentencia.execute(query);
         }
         catch(Exception ex) {
-            throw new DAOException("Error en delete", ex);
+            throw new DAOException("DAO Error: Error en delete", ex);
         }
         finally {
             closeConnection(conn);
@@ -113,7 +113,7 @@ public class AdicionalDAOImp {
             }
         }
         catch(Exception ex) {
-            throw new DAOException("Error en query", ex);
+            throw new DAOException("DAO Error: Error en query", ex);
         }
         finally {
             closeConnection(conn);
