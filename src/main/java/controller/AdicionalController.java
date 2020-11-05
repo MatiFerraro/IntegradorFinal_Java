@@ -25,7 +25,7 @@ public class AdicionalController extends HttpServlet {
         try {
             adicionalService.agregarAdicional(adicionalDTO);
         } catch (Exception ex) {
-            throw new ServletException("Servlet Error: Error en insert" + ex.getCause());
+            throw new ServletException("Servlet Error: Error en insert " + ex.getCause());
         }
 
         res.setContentType("text/html");
@@ -47,7 +47,7 @@ public class AdicionalController extends HttpServlet {
             adicionalService.deleteService(Integer.parseInt(req.getParameter("id")));
         }
         catch (Exception ex) {
-            throw new ServletException("Servlet Error: Error en delete" + ex.getCause());
+            throw new ServletException("Servlet Error: Error en delete " + ex.getCause());
         }
 
         res.setContentType("text/html");
@@ -72,7 +72,7 @@ public class AdicionalController extends HttpServlet {
             adicionalService.updateService(adicionalDTO);
         }
         catch (Exception ex) {
-            throw new ServletException("Servlet Error: Error en update" + ex.getCause());
+            throw new ServletException("Servlet Error: Error en update " + ex.getCause());
         }
 
         res.setContentType("text/html");
@@ -92,7 +92,7 @@ public class AdicionalController extends HttpServlet {
             adicionalService.consultarAdicional(Integer.parseInt(req.getParameter("id")));
         }
         catch (Exception ex) {
-            throw new ServletException("Servlet Error: Error en consutlar" + ex.getCause());
+            throw new ServletException("Servlet Error: Error en consutlar " + ex.getCause());
         }
 
         res.setContentType("text/html");

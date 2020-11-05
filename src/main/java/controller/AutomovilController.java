@@ -26,7 +26,7 @@ public class AutomovilController extends HttpServlet {
         try {
             automovilService.fabricarAuto(automovilDTO);
         } catch (Exception ex) {
-            throw new ServletException("Servlet Error: Error en insert" + ex.getCause());
+            throw new ServletException("Servlet Error: Error en insert " + ex.getCause());
         }
 
         res.setContentType("text/html");
@@ -48,7 +48,7 @@ public class AutomovilController extends HttpServlet {
             automovilService.deleteService(Integer.parseInt(req.getParameter("id")));
         }
         catch (Exception ex) {
-            throw new ServletException("Servlet Error: Error en delete" + ex.getCause());
+            throw new ServletException("Servlet Error: Error en delete " + ex.getCause());
         }
 
         res.setContentType("text/html");
@@ -73,7 +73,7 @@ public class AutomovilController extends HttpServlet {
         try {
             automovilService.updateService(automovilDTO);
         } catch (Exception ex) {
-            throw new ServletException("Servlet Error: Error en update" + ex.getCause());
+            throw new ServletException("Servlet Error: Error en update " + ex.getCause());
         }
 
         res.setContentType("text/html");
@@ -93,7 +93,7 @@ public class AutomovilController extends HttpServlet {
             automovilService.consultarAuto(Integer.parseInt(req.getParameter("id")));
         }
         catch (Exception ex) {
-            throw new ServletException("Servlet Error: Error en consutlar" + ex.getCause());
+            throw new ServletException("Servlet Error: Error en consultar " + ex.getCause());
         }
 
         res.setContentType("text/html");
@@ -113,7 +113,7 @@ public class AutomovilController extends HttpServlet {
             automovilService.consultarAuto_Precio(Integer.parseInt(req.getParameter("id")));
         }
         catch (Exception ex) {
-            throw new ServletException("Servlet Error: Error en consutlar precio" + ex.getCause());
+            throw new ServletException("Servlet Error: Error en consutlar precio " + ex.getCause());
         }
 
         res.setContentType("text/html");
@@ -133,7 +133,7 @@ public class AutomovilController extends HttpServlet {
             automovilService.consultarAutos();
         }
         catch (Exception ex) {
-            throw new ServletException("Servlet Error: Error en consutlar lista" + ex.getCause());
+            throw new ServletException("Servlet Error: Error en consutlar lista " + ex.getCause());
         }
 
         res.setContentType("text/html");

@@ -23,7 +23,7 @@ public class AdicionalesAutoDAOImp implements AdicionalesAutoDAO {
             conn = DriverManager.getConnection(url, usuario, clave);
         }
         catch(Exception ex) {
-            throw new DAOException("Error en iniciar conexion", ex);
+            throw new DAOException("Error en iniciar conexion ", ex);
         }
         return conn;
 
@@ -35,7 +35,7 @@ public class AdicionalesAutoDAOImp implements AdicionalesAutoDAO {
             conn.close();
         }
         catch(Exception ex) {
-            throw new DAOException("Error en cerrar conexion", ex);
+            throw new DAOException("Error en cerrar conexion ", ex);
         }
 
     }
@@ -51,7 +51,7 @@ public class AdicionalesAutoDAOImp implements AdicionalesAutoDAO {
             sentencia.execute(query);
         }
         catch(Exception ex) {
-            throw new DAOException("DAO Error: Error en insert", ex);
+            throw new DAOException("DAO Error: Error en insert ", ex);
         }
         finally {
             closeConnection(conn);
@@ -70,7 +70,7 @@ public class AdicionalesAutoDAOImp implements AdicionalesAutoDAO {
             sentencia.execute(query);
         }
         catch(Exception ex) {
-            throw new DAOException("DAO Error: Error en update", ex);
+            throw new DAOException("DAO Error: Error en update ", ex);
         }
         finally {
             closeConnection(conn);
@@ -89,7 +89,7 @@ public class AdicionalesAutoDAOImp implements AdicionalesAutoDAO {
             sentencia.execute(query);
         }
         catch(Exception ex) {
-            throw new DAOException("DAO Error: Error en delete", ex);
+            throw new DAOException("DAO Error: Error en delete ", ex);
         }
         finally {
             closeConnection(conn);
@@ -107,7 +107,7 @@ public class AdicionalesAutoDAOImp implements AdicionalesAutoDAO {
             sentencia.execute(query);
         }
         catch(Exception ex) {
-            throw new DAOException("DAO Error: Error en delete", ex);
+            throw new DAOException("DAO Error: Error en delete ", ex);
         }
         finally {
             closeConnection(conn);
@@ -138,7 +138,7 @@ public class AdicionalesAutoDAOImp implements AdicionalesAutoDAO {
             return adicionales;
         }
         catch(Exception ex) {
-            throw new DAOException("DAO Error: Error en consultar adicionales", ex);
+            throw new DAOException("DAO Error: Error en consultar adicionales ", ex);
         }
         finally {
             closeConnection(conn);

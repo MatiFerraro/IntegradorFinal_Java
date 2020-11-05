@@ -9,7 +9,7 @@ public class Coupe extends Automovil {
     public Coupe(){
         super();
         this.idVariante = 1;
-        this.precioBase = 27000f;
+        this.precioBase = 270000f;
     }
 
     public String getVariante() {

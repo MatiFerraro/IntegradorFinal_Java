@@ -30,7 +30,7 @@ public class AutomovilDAOImp implements AutomovilDAO {
             conn = DriverManager.getConnection(url, usuario, clave);
         }
         catch(Exception ex) {
-            throw new DAOException("Error en iniciar conexion", ex);
+            throw new DAOException("Error en iniciar conexion ", ex);
         }
         return conn;
 
@@ -42,7 +42,7 @@ public class AutomovilDAOImp implements AutomovilDAO {
             conn.close();
         }
         catch(Exception ex) {
-            throw new DAOException("Error en cerrar conexion", ex);
+            throw new DAOException("Error en cerrar conexion ", ex);
         }
 
     }
@@ -67,7 +67,7 @@ public class AutomovilDAOImp implements AutomovilDAO {
             }
         }
         catch(Exception ex) {
-            throw new DAOException("DAO Error: Error en insert", ex);
+            throw new DAOException("DAO Error: Error en insert ", ex);
         }
         finally {
             closeConnection(conn);
@@ -87,7 +87,7 @@ public class AutomovilDAOImp implements AutomovilDAO {
             adicionalesAutoDAO.deleteAll(id);
         }
         catch(Exception ex) {
-            throw new DAOException("DAO Error: Error en delete", ex);
+            throw new DAOException("DAO Error: Error en delete ", ex);
         }
         finally {
             closeConnection(conn);
@@ -114,7 +114,7 @@ public class AutomovilDAOImp implements AutomovilDAO {
             }
         }
         catch(Exception ex) {
-            throw new DAOException("DAO Error: Error en update", ex);
+            throw new DAOException("DAO Error: Error en update ", ex);
         }
         finally {
             closeConnection(conn);
@@ -146,7 +146,7 @@ public class AutomovilDAOImp implements AutomovilDAO {
             return automovil;
         }
         catch(Exception ex) {
-            throw new DAOException("DAO Error: Error en consultar", ex);
+            throw new DAOException("DAO Error: Error en consultar ", ex);
         }
         finally {
             closeConnection(conn);
@@ -170,7 +170,7 @@ public class AutomovilDAOImp implements AutomovilDAO {
             return precioFinal;
         }
         catch(Exception ex) {
-            throw new DAOException("DAO Error: Error en consultar precio", ex);
+            throw new DAOException("DAO Error: Error en consultar precio ", ex);
         }
         finally {
             closeConnection(conn);
@@ -205,7 +205,7 @@ public class AutomovilDAOImp implements AutomovilDAO {
             return automoviles;
         }
         catch(Exception ex) {
-            throw new DAOException("DAO Error: Error en consultar lista", ex);
+            throw new DAOException("DAO Error: Error en consultar lista ", ex);
         }
         finally {
             closeConnection(conn);
@@ -236,7 +236,7 @@ public class AutomovilDAOImp implements AutomovilDAO {
             return adicionales;
         }
         catch(Exception ex) {
-            throw new DAOException("DAO Error: Error en consultar adicionales", ex);
+            throw new DAOException("DAO Error: Error en consultar adicionales ", ex);
         }
         finally {
             closeConnection(conn);
