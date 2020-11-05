@@ -1,21 +1,15 @@
 package controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import DTOs.AutomovilDTO;
 import DTOs.AutomovilDTO;
 import services.AutomovilService;
 import services.imp.AutomovilServiceImp;
-
-import javax.servlet.*;
-import javax.servlet.http.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class AutomovilController extends HttpServlet {
 
@@ -32,8 +26,9 @@ public class AutomovilController extends HttpServlet {
         try {
             automovilService.fabricarAuto(automovilDTO);
         } catch (Exception ex) {
-            throw new ServletException("Servlet Error: Error al insertar" + ex.getCause());
+            throw new ServletException("Servlet Error: Error en insert" + ex.getCause());
         }
+
         res.setContentType("text/html");
         PrintWriter pw = res.getWriter();
         pw.println("<html><head>");
@@ -53,7 +48,7 @@ public class AutomovilController extends HttpServlet {
             automovilService.deleteService(Integer.parseInt(req.getParameter("id")));
         }
         catch (Exception ex) {
-            throw new ServletException("Servlet Error: Error al eliminar" + ex.getCause());
+            throw new ServletException("Servlet Error: Error en delete" + ex.getCause());
         }
 
         res.setContentType("text/html");
@@ -78,7 +73,7 @@ public class AutomovilController extends HttpServlet {
         try {
             automovilService.updateService(automovilDTO);
         } catch (Exception ex) {
-            throw new ServletException("Servlet Error: Error al actualizar" + ex.getCause());
+            throw new ServletException("Servlet Error: Error en update" + ex.getCause());
         }
 
         res.setContentType("text/html");
@@ -98,7 +93,7 @@ public class AutomovilController extends HttpServlet {
             automovilService.consultarAuto(Integer.parseInt(req.getParameter("id")));
         }
         catch (Exception ex) {
-            throw new ServletException("Servlet Error: Error al consutlar" + ex.getCause());
+            throw new ServletException("Servlet Error: Error en consutlar" + ex.getCause());
         }
 
         res.setContentType("text/html");

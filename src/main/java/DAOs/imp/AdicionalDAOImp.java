@@ -111,14 +111,14 @@ public class AdicionalDAOImp {
                 adicional.setDescripcion(rs.getString("descripcion"));
                 adicional.setPrecioAdicional(rs.getFloat("precio"));
             }
+            return adicional;
         }
         catch(Exception ex) {
-            throw new DAOException("DAO Error: Error en query", ex);
+            throw new DAOException("DAO Error: Error en consultar", ex);
         }
         finally {
             closeConnection(conn);
         }
-        return adicional;
 
     }
 

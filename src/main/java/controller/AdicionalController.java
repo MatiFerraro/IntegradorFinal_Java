@@ -15,26 +15,6 @@ public class AdicionalController extends HttpServlet {
 
     AdicionalService adicionalService = new AdicionalServiceImp();
 
-    public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
-        try {
-            adicionalService.consultarAdicional(Integer.parseInt(req.getParameter("id")));
-        }
-        catch (Exception ex) {
-            throw new ServletException("Servlet Error: Error al consutlar" + ex.getCause());
-        }
-
-        res.setContentType("text/html");
-        PrintWriter pw = res.getWriter();
-        pw.println("<html><head>");
-        pw.println("<TITLE>Servlet Curso Java Metodo GET</TITLE>");
-        pw.println("</head><body>");
-        pw.println("<p>Consultar un Adicional</p>");
-        pw.println("</body>");
-        pw.close();
-
-    }
-
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
         AdicionalDTO adicionalDTO = new AdicionalDTO();
@@ -45,7 +25,7 @@ public class AdicionalController extends HttpServlet {
         try {
             adicionalService.agregarAdicional(adicionalDTO);
         } catch (Exception ex) {
-            throw new ServletException("Servlet Error: Error al insertar" + ex.getCause());
+            throw new ServletException("Servlet Error: Error en insert" + ex.getCause());
         }
 
         res.setContentType("text/html");
@@ -56,6 +36,26 @@ public class AdicionalController extends HttpServlet {
         pw.println("<p>Insertar un Adicional</p>");
         pw.println(req.getParameter("descripcion"));
         pw.println(req.getParameter("precio"));
+        pw.println("</body>");
+        pw.close();
+
+    }
+
+    public void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+        try {
+            adicionalService.deleteService(Integer.parseInt(req.getParameter("id")));
+        }
+        catch (Exception ex) {
+            throw new ServletException("Servlet Error: Error en delete" + ex.getCause());
+        }
+
+        res.setContentType("text/html");
+        PrintWriter pw = res.getWriter();
+        pw.println("<html><head>");
+        pw.println("<TITLE>Servlet Curso Java Metodo GET</TITLE>");
+        pw.println("</head><body>");
+        pw.println("<p>Eliminar Adicional</p>");
         pw.println("</body>");
         pw.close();
 
@@ -72,7 +72,7 @@ public class AdicionalController extends HttpServlet {
             adicionalService.updateService(adicionalDTO);
         }
         catch (Exception ex) {
-            throw new ServletException("Servlet Error: Error al actualizar" + ex.getCause());
+            throw new ServletException("Servlet Error: Error en update" + ex.getCause());
         }
 
         res.setContentType("text/html");
@@ -86,13 +86,13 @@ public class AdicionalController extends HttpServlet {
 
     }
 
-    public void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
         try {
-            adicionalService.deleteService(Integer.parseInt(req.getParameter("id")));
+            adicionalService.consultarAdicional(Integer.parseInt(req.getParameter("id")));
         }
         catch (Exception ex) {
-            throw new ServletException("Servlet Error: Error al eliminar" + ex.getCause());
+            throw new ServletException("Servlet Error: Error en consutlar" + ex.getCause());
         }
 
         res.setContentType("text/html");
@@ -100,7 +100,7 @@ public class AdicionalController extends HttpServlet {
         pw.println("<html><head>");
         pw.println("<TITLE>Servlet Curso Java Metodo GET</TITLE>");
         pw.println("</head><body>");
-        pw.println("<p>Eliminar Adicional</p>");
+        pw.println("<p>Consultar un Adicional</p>");
         pw.println("</body>");
         pw.close();
 

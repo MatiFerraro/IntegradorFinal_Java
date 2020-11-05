@@ -10,60 +10,76 @@ import services.AdicionalService;
 
 public class AdicionalServiceImp implements AdicionalService {
 
-    private AdicionalDAO adicionalDAO;
+    private AdicionalDAO adicionalDAO = null;
 
     public void agregarAdicional(AdicionalDTO adicionalDTO) throws ServiceException {
+
         Adicional adicional = converterDTO_Model(adicionalDTO);
+
         try {
             adicionalDAO.insert(adicional);
         }
         catch (DAOException ex) {
-            throw new ServiceException("Service Error: Error al fabricar Adicional" + ex.getCause());
+            throw new ServiceException("Service Error: Error al agregar" + ex.getCause());
         }
+
+    }
+
+    public void eliminarAdicional(Integer idAdicional) throws ServiceException {
+
+        try {
+            adicionalDAO.delete(idAdicional);
+        }
+        catch (Exception ex) {
+            throw new ServiceException("Service Error: Error al eliminar" + ex.getCause());
+        }
+
+    }
+
+    public void modificarAdicional(AdicionalDTO adicionalDTO) throws ServiceException {
+
+        Adicional adicional = converterDTO_Model(adicionalDTO);
+
+        try {
+            adicionalDAO.update(adicional);
+        }
+        catch (Exception ex) {
+            throw new ServiceException("Service Error: Error al modificar" + ex.getCause());
+        }
+
     }
 
     public AdicionalDTO consultarAdicional(Integer idAdicional) throws ServiceException {
+
         AdicionalDTO adicionalDTO = null;
+
         try {
             adicionalDTO = converterModel_DTO(adicionalDAO.queryId(idAdicional));
             return adicionalDTO;
         }
         catch (Exception ex) {
-            throw new ServiceException("Service Error: Error al consultar Adicional" + ex.getCause());
+            throw new ServiceException("Service Error: Error al consultar" + ex.getCause());
         }
+
     }
 
-    public void modificarAdicional(AdicionalDTO adicionalDTO) throws ServiceException {
-        Adicional adicional = converterDTO_Model(adicionalDTO);
-        try {
-            adicionalDAO.update(adicional);
-        }
-        catch (Exception ex) {
-            throw new ServiceException("Service Error: Error al modificar Adicional" + ex.getCause());
-        }
-    }
-
-    public void eliminarAdicional(Integer idAdicional) throws ServiceException {
-        try {
-            adicionalDAO.delete(idAdicional);
-        }
-        catch (Exception ex) {
-            throw new ServiceException("Service Error: Error al eliminar Adicional" + ex.getCause());
-        }
-    }
 
     public Adicional converterDTO_Model(AdicionalDTO adicionalDTO) {
-        Adicional adicional = new Adicional();
+
+        Adicional adicional = null;
         adicional.setDescripcion(adicionalDTO.getDescripcion());
         adicional.setPrecioAdicional(adicionalDTO.getPrecioAdicional());
         return adicional;
+
     }
 
     private AdicionalDTO converterModel_DTO(Adicional adicional) {
+
         AdicionalDTO adicionalDTO = new AdicionalDTO();
         adicionalDTO.setDescripcion(adicional.getDescripcion());
         adicionalDTO.setPrecioAdicional(adicional.getPrecioAdicional());
         return adicionalDTO;
+
     }
 
     public void updateService(AdicionalDTO adicionalDTO) throws ServiceException {
@@ -72,7 +88,7 @@ public class AdicionalServiceImp implements AdicionalService {
             adicionalDAO.update(converterDTO_Model(adicionalDTO));
         }
         catch (Exception ex) {
-            throw new ServiceException("Service Error: Error al actualizar Adicional" + ex.getCause());
+            throw new ServiceException("Service Error: Error al actualizar" + ex.getCause());
         }
 
     }
@@ -83,7 +99,7 @@ public class AdicionalServiceImp implements AdicionalService {
             adicionalDAO.delete(idAdicional);
         }
         catch (Exception ex) {
-            throw new ServiceException("Service Error: Error al eliminar Adicional" + ex.getCause());
+            throw new ServiceException("Service Error: Error al eliminar" + ex.getCause());
         }
 
     }
