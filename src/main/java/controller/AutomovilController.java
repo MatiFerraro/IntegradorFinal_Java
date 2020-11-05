@@ -107,4 +107,44 @@ public class AutomovilController extends HttpServlet {
 
     }
 
+    public void doGetPrecio(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+        try {
+            automovilService.consultarAuto_Precio(Integer.parseInt(req.getParameter("id")));
+        }
+        catch (Exception ex) {
+            throw new ServletException("Servlet Error: Error en consutlar precio" + ex.getCause());
+        }
+
+        res.setContentType("text/html");
+        PrintWriter pw = res.getWriter();
+        pw.println("<html><head>");
+        pw.println("<TITLE>Servlet Curso Java Metodo GET</TITLE>");
+        pw.println("</head><body>");
+        pw.println("<p>Consultar un Automovil</p>");
+        pw.println("</body>");
+        pw.close();
+
+    }
+
+    public void doGetLista(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+        try {
+            automovilService.consultarAutos();
+        }
+        catch (Exception ex) {
+            throw new ServletException("Servlet Error: Error en consutlar lista" + ex.getCause());
+        }
+
+        res.setContentType("text/html");
+        PrintWriter pw = res.getWriter();
+        pw.println("<html><head>");
+        pw.println("<TITLE>Servlet Curso Java Metodo GET</TITLE>");
+        pw.println("</head><body>");
+        pw.println("<p>Consultar un Automovil</p>");
+        pw.println("</body>");
+        pw.close();
+
+    }
+
 }

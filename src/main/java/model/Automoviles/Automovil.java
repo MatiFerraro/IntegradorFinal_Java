@@ -11,7 +11,6 @@ public abstract class Automovil {
     protected Integer idVariante;
     protected Float precioBase;
     protected Float precioFinal;
-
     private List<Adicional> adicionales;
 
     public Automovil(){

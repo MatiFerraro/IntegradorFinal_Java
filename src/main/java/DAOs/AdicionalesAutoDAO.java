@@ -10,6 +10,7 @@ public interface AdicionalesAutoDAO {
     public void insert(Integer idAutomovil, Integer idAdicional) throws DAOException;
     public void update(Integer idAutomovil, Integer idAdicional) throws DAOException;
     public void delete(Integer idAutomovil, Integer idAdicional) throws DAOException;
+    public void deleteAll(Integer idAutomovil) throws DAOException;
     public List<Adicional> queryAdicionalesAuto(Integer idAutomovil) throws DAOException;
 
 }

@@ -1,5 +1,6 @@
 package DAOs.imp;
 
+import DAOs.AdicionalesAutoDAO;
 import DAOs.AutomovilDAO;
 import DTOs.AutomovilDTO;
 import exceptions.DAOException;
@@ -14,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AutomovilDAOImp implements AutomovilDAO {
+
+    List<Adicional> adicionales = null;
+    AdicionalesAutoDAO adicionalesAutoDAO = null;
 
     private Connection getConnection() throws DAOException {
 
@@ -53,9 +57,17 @@ public class AutomovilDAOImp implements AutomovilDAO {
                     automovil.getPrecioFinal() + ")";
             Statement sentencia = conn.createStatement();
             sentencia.execute(query);
+
+            Integer idAuto = automovil.getId();
+            adicionales = automovil.getAdicionales();
+
+            for(Adicional adicional : adicionales) {
+                Integer idAdicional = adicional.getId();
+                adicionalesAutoDAO.insert(idAuto, idAdicional);
+            }
         }
         catch(Exception ex) {
-            throw new DAOException("DAO Error: Error en insertar", ex);
+            throw new DAOException("DAO Error: Error en insert", ex);
         }
         finally {
             closeConnection(conn);
@@ -71,6 +83,8 @@ public class AutomovilDAOImp implements AutomovilDAO {
             String query = "DELETE FROM automovil WHERE id = " + id;
             Statement sentencia = conn.createStatement();
             sentencia.execute(query);
+
+            adicionalesAutoDAO.deleteAll(id);
         }
         catch(Exception ex) {
             throw new DAOException("DAO Error: Error en delete", ex);
@@ -91,6 +105,13 @@ public class AutomovilDAOImp implements AutomovilDAO {
                     " WHERE id = " + automovil.getId();
             Statement sentencia = conn.createStatement();
             sentencia.execute(query);
+
+            Integer idAutomovil = automovil.getId();
+            adicionales = automovil.getAdicionales();
+            for (Adicional adicional : adicionales) {
+                Integer idAdicional = adicional.getId();
+                adicionalesAutoDAO.update(idAutomovil, idAdicional);
+            }
         }
         catch(Exception ex) {
             throw new DAOException("DAO Error: Error en update", ex);
@@ -116,6 +137,12 @@ public class AutomovilDAOImp implements AutomovilDAO {
                 automovil.setPrecioBase(rs.getFloat("precioBase"));
                 automovil.setPrecioFinal(rs.getFloat("precioFinal"));
             }
+
+            adicionales = adicionalesAutoDAO.queryAdicionalesAuto(id);
+            for(Adicional adicional : adicionales) {
+                automovil.agregarAdicional(adicional);
+            }
+
             return automovil;
         }
         catch(Exception ex) {
@@ -163,11 +190,17 @@ public class AutomovilDAOImp implements AutomovilDAO {
             sentencia.execute(query);
             ResultSet rs = sentencia.getResultSet();
             while(rs.next()){
-                automovil.setId(rs.getInt("id"));
+                Integer idAutomovil = rs.getInt("id");
+                automovil.setId(idAutomovil);
                 automovil.setIdVariante(rs.getInt("idVariante"));
                 automovil.setPrecioBase(rs.getFloat("precioBase"));
                 automovil.setPrecioFinal(rs.getFloat("precioFinal"));
                 automoviles.add(automovil);
+
+                adicionales = adicionalesAutoDAO.queryAdicionalesAuto(idAutomovil);
+                for(Adicional adicional : adicionales) {
+                    automovil.agregarAdicional(adicional);
+                }
             }
             return automoviles;
         }
@@ -200,6 +233,7 @@ public class AutomovilDAOImp implements AutomovilDAO {
                 adicional.setPrecioAdicional(rs.getFloat("precio"));
                 adicionales.add(adicional);
             }
+            return adicionales;
         }
         catch(Exception ex) {
             throw new DAOException("DAO Error: Error en consultar adicionales", ex);
@@ -207,7 +241,6 @@ public class AutomovilDAOImp implements AutomovilDAO {
         finally {
             closeConnection(conn);
         }
-        return adicionales;
 
     }
 

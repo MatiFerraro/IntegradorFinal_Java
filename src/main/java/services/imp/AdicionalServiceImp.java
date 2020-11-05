@@ -20,7 +20,7 @@ public class AdicionalServiceImp implements AdicionalService {
             adicionalDAO.insert(adicional);
         }
         catch (DAOException ex) {
-            throw new ServiceException("Service Error: Error al agregar" + ex.getCause());
+            throw new ServiceException("Service Error: Error en insert" + ex.getCause());
         }
 
     }
@@ -31,7 +31,7 @@ public class AdicionalServiceImp implements AdicionalService {
             adicionalDAO.delete(idAdicional);
         }
         catch (Exception ex) {
-            throw new ServiceException("Service Error: Error al eliminar" + ex.getCause());
+            throw new ServiceException("Service Error: Error en delete" + ex.getCause());
         }
 
     }
@@ -44,7 +44,7 @@ public class AdicionalServiceImp implements AdicionalService {
             adicionalDAO.update(adicional);
         }
         catch (Exception ex) {
-            throw new ServiceException("Service Error: Error al modificar" + ex.getCause());
+            throw new ServiceException("Service Error: Error en update" + ex.getCause());
         }
 
     }
@@ -58,7 +58,7 @@ public class AdicionalServiceImp implements AdicionalService {
             return adicionalDTO;
         }
         catch (Exception ex) {
-            throw new ServiceException("Service Error: Error al consultar" + ex.getCause());
+            throw new ServiceException("Service Error: Error en consultar" + ex.getCause());
         }
 
     }

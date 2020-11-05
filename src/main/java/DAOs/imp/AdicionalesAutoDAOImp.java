@@ -3,13 +3,11 @@ package DAOs.imp;
 import DAOs.AdicionalesAutoDAO;
 import exceptions.DAOException;
 import model.Adicionales.Adicional;
-import model.Automoviles.Automovil;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 public class AdicionalesAutoDAOImp implements AdicionalesAutoDAO {
@@ -99,11 +97,29 @@ public class AdicionalesAutoDAOImp implements AdicionalesAutoDAO {
 
     }
 
+    public void deleteAll(Integer idAutomovil) throws DAOException {
+
+        Connection conn = this.getConnection();
+
+        try {
+            String query = "DELETE FROM adicional_auto WHERE idAuto = " + idAutomovil;
+            Statement sentencia = conn.createStatement();
+            sentencia.execute(query);
+        }
+        catch(Exception ex) {
+            throw new DAOException("DAO Error: Error en delete", ex);
+        }
+        finally {
+            closeConnection(conn);
+        }
+
+    }
+
     public List<Adicional> queryAdicionalesAuto(Integer idAutomovil) throws DAOException {
 
         Connection conn = this.getConnection();
         Adicional adicional = null;
-        List<Adicional> adicionales = new List<Adicional>();
+        List<Adicional> adicionales = null;
 
         try {
             String query = "SELECT descripcion, precio " +
@@ -113,20 +129,20 @@ public class AdicionalesAutoDAOImp implements AdicionalesAutoDAO {
             Statement sentencia = conn.createStatement();
             sentencia.execute(query);
             ResultSet rs = sentencia.getResultSet();
-            if(rs.next()){
+            while(rs.next()){
                 adicional.setId(rs.getInt("id"));
                 adicional.setDescripcion(rs.getString("descripcion"));
                 adicional.setPrecioAdicional(rs.getFloat("precio"));
                 adicionales.add(adicional);
             }
+            return adicionales;
         }
         catch(Exception ex) {
-            throw new DAOException("DAO Error: Error en queryAdicionales", ex);
+            throw new DAOException("DAO Error: Error en consultar adicionales", ex);
         }
         finally {
             closeConnection(conn);
         }
-        return adicionales;
 
     }
 

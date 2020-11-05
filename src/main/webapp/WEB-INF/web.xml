@@ -10,15 +10,15 @@
         <servlet-class>controller.AutomovilController</servlet-class>
     </servlet>
 
-    <servlet-mapping>
-        <servlet-name>AutomovilController</servlet-name>
-        <url-pattern>/automovil</url-pattern>
-    </servlet-mapping>
-
     <servlet>
         <servlet-name>AdicionalController</servlet-name>
         <servlet-class>controller.AdicionalController</servlet-class>
     </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AutomovilController</servlet-name>
+        <url-pattern>/automovil</url-pattern>
+    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>AdicionalController</servlet-name>

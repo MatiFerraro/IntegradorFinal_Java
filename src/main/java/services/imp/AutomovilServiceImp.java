@@ -22,7 +22,7 @@ public class AutomovilServiceImp implements AutomovilService {
             automovilDAO.insert(automovil);
         }
         catch (DAOException ex) {
-            throw new ServiceException("Service Error: Error al fabricar" + ex.getCause());
+            throw new ServiceException("Service Error: Error en insert" + ex.getCause());
         }
 
     }
@@ -33,7 +33,7 @@ public class AutomovilServiceImp implements AutomovilService {
             automovilDAO.delete(idAutomovil);
         }
         catch (Exception ex) {
-            throw new ServiceException("Service Error: Error al eliminar" + ex.getCause());
+            throw new ServiceException("Service Error: Error en delete" + ex.getCause());
         }
 
     }
@@ -46,7 +46,7 @@ public class AutomovilServiceImp implements AutomovilService {
             automovilDAO.update(automovil);
         }
         catch (Exception ex) {
-            throw new ServiceException("Service Error: Error al modificar" + ex.getCause());
+            throw new ServiceException("Service Error: Error en update" + ex.getCause());
         }
 
     }
@@ -58,7 +58,7 @@ public class AutomovilServiceImp implements AutomovilService {
             return automovilDTO;
         }
         catch (Exception ex) {
-            throw new ServiceException("Service Error: Error al consultar" + ex.getCause());
+            throw new ServiceException("Service Error: Error en consultar" + ex.getCause());
         }
     }
 
@@ -69,7 +69,7 @@ public class AutomovilServiceImp implements AutomovilService {
             return precioFinal;
         }
         catch (Exception ex) {
-            throw new ServiceException("Service Error: Error al consultar precio" + ex.getCause());
+            throw new ServiceException("Service Error: Error en consultar precio" + ex.getCause());
         }
     }
 
@@ -87,7 +87,7 @@ public class AutomovilServiceImp implements AutomovilService {
             return automovilesDTO;
         }
         catch (Exception ex) {
-            throw new ServiceException("Service Error: Error al consultar lista" + ex.getCause());
+            throw new ServiceException("Service Error: Error en consultar lista" + ex.getCause());
         }
 
     }
