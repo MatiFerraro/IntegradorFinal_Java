@@ -1,5 +1,6 @@
 package DAOs.imp;
 
+import DAOs.AdicionalDAO;
 import exceptions.DAOException;
 import model.Adicionales.Adicional;
 
@@ -8,7 +9,15 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class AdicionalDAOImp {
+public class AdicionalDAOImp implements AdicionalDAO {
+
+    Adicional adicional;
+
+    public AdicionalDAOImp() {
+
+        adicional = null;
+
+    }
 
     private Connection getConnection() throws DAOException {
 
@@ -38,6 +47,7 @@ public class AdicionalDAOImp {
 
     }
 
+    @Override
     public void insert(Adicional adicional) throws DAOException {
 
         Connection conn = this.getConnection();
@@ -58,6 +68,7 @@ public class AdicionalDAOImp {
 
     }
 
+    @Override
     public void update(Adicional adicional) throws DAOException {
 
         Connection conn = this.getConnection();
@@ -78,6 +89,7 @@ public class AdicionalDAOImp {
 
     }
 
+    @Override
     public void delete(Integer id) throws DAOException {
 
         Connection conn = this.getConnection();
@@ -96,10 +108,10 @@ public class AdicionalDAOImp {
 
     }
 
+    @Override
     public Adicional queryId(Integer id) throws DAOException {
 
         Connection conn = this.getConnection();
-        Adicional adicional = null;
 
         try {
             String query = "SELECT * FROM adicional WHERE id = " + id ;

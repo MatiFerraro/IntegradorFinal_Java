@@ -2,18 +2,40 @@ package services.imp;
 
 import DAOs.AutomovilDAO;
 import DAOs.imp.AutomovilDAOImp;
+import DTOs.AdicionalDTO;
 import DTOs.AutomovilDTO;
 import exceptions.DAOException;
 import exceptions.ServiceException;
+import model.Adicionales.Adicional;
 import model.Automoviles.Automovil;
 import services.AutomovilService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AutomovilServiceImp implements AutomovilService {
 
-    private AutomovilDAO automovilDAO = new AutomovilDAOImp();
+    AutomovilDAO automovilDAO;
+    AutomovilDTO automovilDTO;
+    List<AutomovilDTO> automovilesDTO;
 
+    List<Adicional> adicionales;
+    List<AdicionalDTO> adicionalesDTO;
+    AdicionalServiceImp adicionalService;
+
+    public AutomovilServiceImp() {
+
+        automovilDAO = new AutomovilDAOImp();
+        automovilDTO = null;
+        automovilesDTO = new ArrayList<>();
+
+        adicionales = new ArrayList<>();
+        adicionalesDTO = new ArrayList<>();
+        adicionalService = null;
+
+    }
+
+    @Override
     public void fabricarAuto(AutomovilDTO automovilDTO) throws ServiceException {
 
         Automovil automovil = converterDTO_Model(automovilDTO);
@@ -27,6 +49,7 @@ public class AutomovilServiceImp implements AutomovilService {
 
     }
 
+    @Override
     public void eliminarAuto(Integer idAutomovil) throws ServiceException {
 
         try {
@@ -38,6 +61,7 @@ public class AutomovilServiceImp implements AutomovilService {
 
     }
 
+    @Override
     public void modificarAuto(AutomovilDTO automovilDTO) throws ServiceException {
 
         Automovil automovil = converterDTO_Model(automovilDTO);
@@ -51,7 +75,9 @@ public class AutomovilServiceImp implements AutomovilService {
 
     }
 
+    @Override
     public AutomovilDTO consultarAuto(Integer idAutomovil) throws ServiceException {
+
         AutomovilDTO automovilDTO = null;
         try {
             automovilDTO = converterModel_DTO(automovilDAO.queryId(idAutomovil));
@@ -62,8 +88,11 @@ public class AutomovilServiceImp implements AutomovilService {
         }
     }
 
+    @Override
     public Float consultarAuto_Precio(Integer idAutomovil) throws ServiceException {
+
         Float precioFinal;
+
         try {
             precioFinal = automovilDAO.queryIdPrecio(idAutomovil);
             return precioFinal;
@@ -73,10 +102,8 @@ public class AutomovilServiceImp implements AutomovilService {
         }
     }
 
+    @Override
     public List<AutomovilDTO> consultarAutos() throws ServiceException {
-
-        AutomovilDTO automovilDTO = null;
-        List<AutomovilDTO> automovilesDTO = null;
 
         try {
             List<Automovil> automoviles = automovilDAO.query();
@@ -99,20 +126,30 @@ public class AutomovilServiceImp implements AutomovilService {
         automovil.setIdVariante(automovilDTO.getIdVariante());
         automovil.setPrecioBase(automovilDTO.getPrecioBase());
         automovil.setPrecioFinal(automovilDTO.getPrecioFinal());
+        adicionalesDTO = automovilDTO.getAdicionales();
+        for(AdicionalDTO adicionalDTO : adicionalesDTO){
+            automovil.agregarAdicional(adicionalService.converterDTO_Model(adicionalDTO));
+        }
         return automovil;
 
     }
 
-    private AutomovilDTO converterModel_DTO(Automovil automovil) {
+    public AutomovilDTO converterModel_DTO(Automovil automovil) {
 
         AutomovilDTO automovilDTO = null;
         automovilDTO.setIdVariante(automovil.getIdVariante());
         automovilDTO.setPrecioBase(automovil.getPrecioBase());
         automovilDTO.setPrecioFinal(automovil.getPrecioFinal());
+        adicionales = automovil.getAdicionales();
+        for(Adicional adicional : adicionales){
+            adicionalesDTO.add(adicionalService.converterModel_DTO(adicional));
+        }
+        automovilDTO.setAdicionales(adicionalesDTO);
         return automovilDTO;
 
     }
 
+    @Override
     public void updateService(AutomovilDTO automovilDTO) throws ServiceException {
 
         try {
@@ -124,6 +161,7 @@ public class AutomovilServiceImp implements AutomovilService {
 
     }
 
+    @Override
     public void deleteService(Integer idAutomovil) throws ServiceException {
 
         try {

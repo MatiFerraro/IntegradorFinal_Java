@@ -1,5 +1,9 @@
+import DTOs.AutomovilDTO;
 import model.Adicionales.*;
+import model.Automoviles.Automovil;
 import model.Automoviles.Coupe;
+import services.AutomovilService;
+import services.imp.AutomovilServiceImp;
 
 public class Main {
 
@@ -23,6 +27,15 @@ public class Main {
                             " el precio base es: $" + coupeAux.getPrecioBase() +
                             " el precio final es: $" + coupeAux.getPrecioFinal());
          */
+
+        AutomovilDTO automovilDTO = null;
+
+        AutomovilService automovilService = new AutomovilServiceImp();
+        automovilDTO = automovilService.consultarAuto(1);
+
+        System.out.println("ID Variante: " + automovilDTO.getIdVariante());
+        System.out.println("Precio Base: " + automovilDTO.getPrecioBase());
+        System.out.println("Precio Final: " + automovilDTO.getPrecioFinal());
 
     }
 

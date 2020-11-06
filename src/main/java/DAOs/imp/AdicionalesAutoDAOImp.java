@@ -8,9 +8,20 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdicionalesAutoDAOImp implements AdicionalesAutoDAO {
+
+    Adicional adicional;
+    List<Adicional> adicionales;
+
+    public AdicionalesAutoDAOImp() {
+
+        adicional = null;
+        adicionales = new ArrayList<>();
+
+    }
 
     private Connection getConnection() throws DAOException {
 
@@ -40,6 +51,7 @@ public class AdicionalesAutoDAOImp implements AdicionalesAutoDAO {
 
     }
 
+    @Override
     public void insert(Integer idAutomovil, Integer idAdicional) throws DAOException {
 
         Connection conn = this.getConnection();
@@ -59,6 +71,7 @@ public class AdicionalesAutoDAOImp implements AdicionalesAutoDAO {
 
     }
 
+    @Override
     public void update(Integer idAutomovil, Integer idAdicional) throws DAOException {
 
         Connection conn = this.getConnection();
@@ -78,6 +91,7 @@ public class AdicionalesAutoDAOImp implements AdicionalesAutoDAO {
 
     }
 
+    @Override
     public void delete(Integer idAutomovil, Integer idAdicional) throws DAOException {
 
         Connection conn = this.getConnection();
@@ -97,6 +111,7 @@ public class AdicionalesAutoDAOImp implements AdicionalesAutoDAO {
 
     }
 
+    @Override
     public void deleteAll(Integer idAutomovil) throws DAOException {
 
         Connection conn = this.getConnection();
@@ -115,11 +130,10 @@ public class AdicionalesAutoDAOImp implements AdicionalesAutoDAO {
 
     }
 
+    @Override
     public List<Adicional> queryAdicionalesAuto(Integer idAutomovil) throws DAOException {
 
         Connection conn = this.getConnection();
-        Adicional adicional = null;
-        List<Adicional> adicionales = null;
 
         try {
             String query = "SELECT descripcion, precio " +

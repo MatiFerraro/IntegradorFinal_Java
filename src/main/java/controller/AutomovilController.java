@@ -25,20 +25,10 @@ public class AutomovilController extends HttpServlet {
 
         try {
             automovilService.fabricarAuto(automovilDTO);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             throw new ServletException("Servlet Error: Error en insert " + ex.getCause());
         }
-
-        res.setContentType("text/html");
-        PrintWriter pw = res.getWriter();
-        pw.println("<html><head>");
-        pw.println("<TITLE>Servlet Curso Java Método Post</TITLE>");
-        pw.println("</head><body>");
-        pw.println("<p>Insertar un Automovil</p>");
-        pw.println(req.getParameter("descripcion"));
-        pw.println(req.getParameter("precio"));
-        pw.println("</body>");
-        pw.close();
 
     }
 
@@ -50,15 +40,6 @@ public class AutomovilController extends HttpServlet {
         catch (Exception ex) {
             throw new ServletException("Servlet Error: Error en delete " + ex.getCause());
         }
-
-        res.setContentType("text/html");
-        PrintWriter pw = res.getWriter();
-        pw.println("<html><head>");
-        pw.println("<TITLE>Servlet Curso Java Metodo GET</TITLE>");
-        pw.println("</head><body>");
-        pw.println("<p>Eliminar Automovil</p>");
-        pw.println("</body>");
-        pw.close();
 
     }
 
@@ -72,18 +53,10 @@ public class AutomovilController extends HttpServlet {
 
         try {
             automovilService.updateService(automovilDTO);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             throw new ServletException("Servlet Error: Error en update " + ex.getCause());
         }
-
-        res.setContentType("text/html");
-        PrintWriter pw = res.getWriter();
-        pw.println("<html><head>");
-        pw.println("<TITLE>Servlet Curso Java Metodo GET</TITLE>");
-        pw.println("</head><body>");
-        pw.println("<p>Actualizar Automovil</p>");
-        pw.println("</body>");
-        pw.close();
 
     }
 
@@ -96,15 +69,6 @@ public class AutomovilController extends HttpServlet {
             throw new ServletException("Servlet Error: Error en consultar " + ex.getCause());
         }
 
-        res.setContentType("text/html");
-        PrintWriter pw = res.getWriter();
-        pw.println("<html><head>");
-        pw.println("<TITLE>Servlet Curso Java Metodo GET</TITLE>");
-        pw.println("</head><body>");
-        pw.println("<p>Consultar un Automovil</p>");
-        pw.println("</body>");
-        pw.close();
-
     }
 
     public void doGetPrecio(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -116,15 +80,6 @@ public class AutomovilController extends HttpServlet {
             throw new ServletException("Servlet Error: Error en consutlar precio " + ex.getCause());
         }
 
-        res.setContentType("text/html");
-        PrintWriter pw = res.getWriter();
-        pw.println("<html><head>");
-        pw.println("<TITLE>Servlet Curso Java Metodo GET</TITLE>");
-        pw.println("</head><body>");
-        pw.println("<p>Consultar un Automovil</p>");
-        pw.println("</body>");
-        pw.close();
-
     }
 
     public void doGetLista(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -135,15 +90,6 @@ public class AutomovilController extends HttpServlet {
         catch (Exception ex) {
             throw new ServletException("Servlet Error: Error en consutlar lista " + ex.getCause());
         }
-
-        res.setContentType("text/html");
-        PrintWriter pw = res.getWriter();
-        pw.println("<html><head>");
-        pw.println("<TITLE>Servlet Curso Java Metodo GET</TITLE>");
-        pw.println("</head><body>");
-        pw.println("<p>Consultar un Automovil</p>");
-        pw.println("</body>");
-        pw.close();
 
     }
 

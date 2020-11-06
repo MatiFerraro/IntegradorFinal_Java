@@ -2,7 +2,6 @@ package DAOs.imp;
 
 import DAOs.AdicionalesAutoDAO;
 import DAOs.AutomovilDAO;
-import DTOs.AutomovilDTO;
 import exceptions.DAOException;
 import model.Adicionales.Adicional;
 import model.Automoviles.Automovil;
@@ -16,8 +15,21 @@ import java.util.List;
 
 public class AutomovilDAOImp implements AutomovilDAO {
 
-    List<Adicional> adicionales = null;
-    AdicionalesAutoDAO adicionalesAutoDAO = null;
+    Automovil automovil;
+    Adicional adicional;
+    List<Automovil> automoviles;
+    List<Adicional> adicionales;
+    AdicionalesAutoDAO adicionalesAutoDAO;
+
+    public AutomovilDAOImp() {
+
+        automovil = null;
+        adicional = null;
+        automoviles = new ArrayList<>();
+        adicionales = new ArrayList<>();
+        adicionalesAutoDAO = new AdicionalesAutoDAOImp();
+
+    }
 
     private Connection getConnection() throws DAOException {
 
@@ -47,6 +59,7 @@ public class AutomovilDAOImp implements AutomovilDAO {
 
     }
 
+    @Override
     public void insert(Automovil automovil) throws DAOException {
 
         Connection conn = this.getConnection();
@@ -75,6 +88,7 @@ public class AutomovilDAOImp implements AutomovilDAO {
 
     }
 
+    @Override
     public void delete(Integer id) throws DAOException {
 
         Connection conn = this.getConnection();
@@ -95,6 +109,7 @@ public class AutomovilDAOImp implements AutomovilDAO {
 
     }
 
+    @Override
     public void update(Automovil automovil) throws DAOException {
 
         Connection conn = this.getConnection();
@@ -122,10 +137,10 @@ public class AutomovilDAOImp implements AutomovilDAO {
 
     }
 
+    @Override
     public Automovil queryId(Integer id) throws DAOException {
 
         Connection conn = this.getConnection();
-        Automovil automovil = null;
 
         try {
             String query = "SELECT * FROM automovil WHERE id = " + id ;
@@ -154,10 +169,11 @@ public class AutomovilDAOImp implements AutomovilDAO {
 
     }
 
+    @Override
     public Float queryIdPrecio(Integer id) throws DAOException {
 
         Connection conn = this.getConnection();
-        Float precioFinal = null;
+        Float precioFinal = 0f;
 
         try {
             String query = "SELECT precioFinal FROM automovil WHERE id = " + id ;
@@ -178,11 +194,10 @@ public class AutomovilDAOImp implements AutomovilDAO {
 
     }
 
+    @Override
     public List<Automovil> query() throws DAOException {
 
         Connection conn = this.getConnection();
-        List<Automovil> automoviles = new ArrayList<Automovil>();
-        Automovil automovil = null;
 
         try {
             String query = "SELECT * FROM automovil" ;
@@ -213,11 +228,10 @@ public class AutomovilDAOImp implements AutomovilDAO {
 
     }
 
+    @Override
     public List<Adicional> queryAdicionales(Integer id) throws DAOException {
 
         Connection conn = this.getConnection();
-        Adicional adicional = null;
-        List<Adicional> adicionales = new ArrayList<Adicional>();
 
         try {
             String query = "SELECT descripcion, precio " +

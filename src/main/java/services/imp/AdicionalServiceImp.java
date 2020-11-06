@@ -12,6 +12,7 @@ public class AdicionalServiceImp implements AdicionalService {
 
     private AdicionalDAO adicionalDAO = null;
 
+    @Override
     public void agregarAdicional(AdicionalDTO adicionalDTO) throws ServiceException {
 
         Adicional adicional = converterDTO_Model(adicionalDTO);
@@ -25,6 +26,7 @@ public class AdicionalServiceImp implements AdicionalService {
 
     }
 
+    @Override
     public void eliminarAdicional(Integer idAdicional) throws ServiceException {
 
         try {
@@ -36,6 +38,7 @@ public class AdicionalServiceImp implements AdicionalService {
 
     }
 
+    @Override
     public void modificarAdicional(AdicionalDTO adicionalDTO) throws ServiceException {
 
         Adicional adicional = converterDTO_Model(adicionalDTO);
@@ -49,6 +52,7 @@ public class AdicionalServiceImp implements AdicionalService {
 
     }
 
+    @Override
     public AdicionalDTO consultarAdicional(Integer idAdicional) throws ServiceException {
 
         AdicionalDTO adicionalDTO = null;
@@ -73,7 +77,7 @@ public class AdicionalServiceImp implements AdicionalService {
 
     }
 
-    private AdicionalDTO converterModel_DTO(Adicional adicional) {
+    public AdicionalDTO converterModel_DTO(Adicional adicional) {
 
         AdicionalDTO adicionalDTO = new AdicionalDTO();
         adicionalDTO.setDescripcion(adicional.getDescripcion());
@@ -82,6 +86,7 @@ public class AdicionalServiceImp implements AdicionalService {
 
     }
 
+    @Override
     public void updateService(AdicionalDTO adicionalDTO) throws ServiceException {
 
         try {
@@ -93,6 +98,7 @@ public class AdicionalServiceImp implements AdicionalService {
 
     }
 
+    @Override
     public void deleteService(Integer idAdicional) throws ServiceException {
 
         try {
