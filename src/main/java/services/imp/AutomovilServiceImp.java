@@ -55,7 +55,7 @@ public class AutomovilServiceImp implements AutomovilService {
         try {
             automovilDAO.delete(idAutomovil);
         }
-        catch (Exception ex) {
+        catch (DAOException ex) {
             throw new ServiceException("Service Error: Error en delete " + ex.getCause());
         }
 
@@ -69,7 +69,7 @@ public class AutomovilServiceImp implements AutomovilService {
         try {
             automovilDAO.update(automovil);
         }
-        catch (Exception ex) {
+        catch (DAOException ex) {
             throw new ServiceException("Service Error: Error en update " + ex.getCause());
         }
 
@@ -78,14 +78,14 @@ public class AutomovilServiceImp implements AutomovilService {
     @Override
     public AutomovilDTO consultarAuto(Integer idAutomovil) throws ServiceException {
 
-        AutomovilDTO automovilDTO = null;
         try {
             automovilDTO = converterModel_DTO(automovilDAO.queryId(idAutomovil));
             return automovilDTO;
         }
-        catch (Exception ex) {
+        catch (DAOException ex) {
             throw new ServiceException("Service Error: Error en consultar " + ex.getCause());
         }
+
     }
 
     @Override
@@ -97,7 +97,7 @@ public class AutomovilServiceImp implements AutomovilService {
             precioFinal = automovilDAO.queryIdPrecio(idAutomovil);
             return precioFinal;
         }
-        catch (Exception ex) {
+        catch (DAOException ex) {
             throw new ServiceException("Service Error: Error en consultar precio " + ex.getCause());
         }
     }
@@ -113,7 +113,7 @@ public class AutomovilServiceImp implements AutomovilService {
             }
             return automovilesDTO;
         }
-        catch (Exception ex) {
+        catch (DAOException ex) {
             throw new ServiceException("Service Error: Error en consultar lista " + ex.getCause());
         }
 

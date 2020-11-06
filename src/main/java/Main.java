@@ -1,7 +1,4 @@
 import DTOs.AutomovilDTO;
-import model.Adicionales.*;
-import model.Automoviles.Automovil;
-import model.Automoviles.Coupe;
 import services.AutomovilService;
 import services.imp.AutomovilServiceImp;
 

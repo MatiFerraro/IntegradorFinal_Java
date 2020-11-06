@@ -151,13 +151,11 @@ public class AutomovilDAOImp implements AutomovilDAO {
                 automovil.setId(id);
                 automovil.setPrecioBase(rs.getFloat("precioBase"));
                 automovil.setPrecioFinal(rs.getFloat("precioFinal"));
+                adicionales = adicionalesAutoDAO.queryAdicionalesAuto(id);
+                for(Adicional adicional : adicionales) {
+                    automovil.agregarAdicional(adicional);
+                }
             }
-
-            adicionales = adicionalesAutoDAO.queryAdicionalesAuto(id);
-            for(Adicional adicional : adicionales) {
-                automovil.agregarAdicional(adicional);
-            }
-
             return automovil;
         }
         catch(Exception ex) {

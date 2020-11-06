@@ -32,7 +32,7 @@ public class AdicionalServiceImp implements AdicionalService {
         try {
             adicionalDAO.delete(idAdicional);
         }
-        catch (Exception ex) {
+        catch (DAOException ex) {
             throw new ServiceException("Service Error: Error en delete " + ex.getCause());
         }
 
@@ -46,7 +46,7 @@ public class AdicionalServiceImp implements AdicionalService {
         try {
             adicionalDAO.update(adicional);
         }
-        catch (Exception ex) {
+        catch (DAOException ex) {
             throw new ServiceException("Service Error: Error en update " + ex.getCause());
         }
 
@@ -61,7 +61,7 @@ public class AdicionalServiceImp implements AdicionalService {
             adicionalDTO = converterModel_DTO(adicionalDAO.queryId(idAdicional));
             return adicionalDTO;
         }
-        catch (Exception ex) {
+        catch (DAOException ex) {
             throw new ServiceException("Service Error: Error en consultar " + ex.getCause());
         }
 
